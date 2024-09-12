@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { signIn } from "next-auth/react";
+import LoginButton from "@/components/button/LoginButton";
+import Navbar from "@/components/layout/Navbar";
+import { Providers } from "./Providers";
+import SessionGuard from "@/components/SessionGuard";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -17,21 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <nav className="relative container mx-auto flex justify-between content-center align-middle py-4 w-full">
-          <p className="text-2xl font-semibold">{metadata.title}</p>
-          <div className="flex justify-around align-middle items-center text-sm">
-            <a href="#" className="px-4 font-semibold">Find Event</a>
-            <a href="#" className="px-4 font-semibold">Create Event</a>
-            <a href="#" className="px-4 font-semibold">Help Center</a>
-            <a href="#" className="px-4 font-semibold">Find my tickets</a>
-            <a href="#" className="px-4 font-semibold">Login</a>
-            <a href="#" className="px-4 font-semibold">Sign Up</a>
-       
-            
-          </div>
-        </nav>
+		<Providers>
+			<Navbar title={metadata.title}/>
 
-        {children}
+			{children}
+		</Providers>
+
       </body>
     </html>
   );
